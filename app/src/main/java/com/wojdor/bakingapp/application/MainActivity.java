@@ -1,9 +1,11 @@
-package com.wojdor.bakingapp;
+package com.wojdor.bakingapp.application;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.wojdor.bakingapp.R;
+import com.wojdor.bakingapp.application.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
