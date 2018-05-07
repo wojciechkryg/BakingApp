@@ -1,6 +1,7 @@
 package com.wojdor.bakingapp.application.recipes;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -16,6 +17,7 @@ import butterknife.ButterKnife;
 
 public class RecipesActivity extends BaseActivity implements RecipesContract.View {
 
+    private static final String LAST_RECIPES_RV_STATE = "LAST_RECIPES_RV_STATE";
     private static final int COLUMN_WIDTH_DIVIDER = 500;
 
     @BindView(R.id.activity_recipes_recipes_rv)
@@ -23,6 +25,7 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
 
     private RecipesContract.Presenter presenter;
     private RecipesAdapter adapter;
+    private Parcelable recipesRvState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,12 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
         ButterKnife.bind(this);
         setupPresenter();
         setupRecipesRv();
+        saveLastRecipeRvState(savedInstanceState);
+    }
+
+    private void saveLastRecipeRvState(Bundle savedInstanceState) {
+        if (savedInstanceState == null) return;
+        recipesRvState = savedInstanceState.getParcelable(LAST_RECIPES_RV_STATE);
     }
 
     @Override
@@ -52,6 +61,12 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LAST_RECIPES_RV_STATE, recipesRv.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDetachView();
@@ -60,5 +75,11 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
     @Override
     public void showRecipes(List<Recipe> recipes) {
         adapter.setRecipes(recipes);
+    }
+
+    @Override
+    public void restoreRecipesListState() {
+        if (recipesRvState == null) return;
+        recipesRv.getLayoutManager().onRestoreInstanceState(recipesRvState);
     }
 }

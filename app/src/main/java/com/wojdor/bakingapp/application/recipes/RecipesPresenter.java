@@ -1,7 +1,5 @@
 package com.wojdor.bakingapp.application.recipes;
 
-import android.util.Log;
-
 import com.wojdor.bakingapp.data.model.RecipeModel;
 import com.wojdor.bakingapp.data.service.RecipesService;
 import com.wojdor.bakingapp.data.utils.RecipeMapper;
@@ -37,11 +35,11 @@ public class RecipesPresenter implements RecipesContract.Presenter {
     private void onLoadRecipesResponse(List<RecipeModel> recipeModels) {
         List<Recipe> recipes = RecipeMapper.getInstance().map(recipeModels);
         view.showRecipes(recipes);
+        view.restoreRecipesListState();
     }
 
     private <T extends Throwable> void onLoadError(T error) {
         // TODO: Show error in view
-        Log.d("TEST", error.toString());
     }
 
     @Override

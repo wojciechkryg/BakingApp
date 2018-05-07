@@ -11,6 +11,8 @@ public interface RecipesContract {
     interface View extends BaseView {
 
         void showRecipes(List<Recipe> recipes);
+
+        void restoreRecipesListState();
     }
 
     interface Presenter extends BasePresenter {
