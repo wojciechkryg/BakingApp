@@ -1,12 +1,15 @@
 package com.wojdor.bakingapp.application.recipes;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.domain.Recipe;
 
@@ -17,6 +20,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     private static final int NO_ITEMS_COUNT = 0;
 
     private final OnItemClickListener onItemClickListener;
+    private Context context;
     private List<Recipe> recipes;
 
     RecipesAdapter(OnItemClickListener onItemClickListener) {
@@ -26,7 +30,8 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_recipe, parent, false);
         return new RecipeViewHolder(view, onItemClickListener);
     }
@@ -34,7 +39,20 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = recipes.get(position);
+        setupRecipeIv(holder.imageIv, recipe);
         holder.nameTv.setText(recipe.getName());
+    }
+
+    private void setupRecipeIv(@NonNull ImageView imageIv, Recipe recipe) {
+        if (isImageUrlInvalid(recipe)) return;
+        Picasso.with(context)
+                .load(recipe.getImageUrl())
+                .error(R.drawable.ic_recipe_image)
+                .into(imageIv);
+    }
+
+    private boolean isImageUrlInvalid(Recipe recipe) {
+        return recipe.getImageUrl() == null || recipe.getImageUrl().trim().isEmpty();
     }
 
     @Override
@@ -54,6 +72,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        final ImageView imageIv;
         final TextView nameTv;
         private RecipesAdapter.OnItemClickListener onItemClickListener;
 
@@ -61,6 +80,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
             super(view);
             this.onItemClickListener = onItemClickListener;
             nameTv = view.findViewById(R.id.item_recipe_name_tv);
+            imageIv = view.findViewById(R.id.item_recipe_image_iv);
             view.setOnClickListener(this);
         }
 
