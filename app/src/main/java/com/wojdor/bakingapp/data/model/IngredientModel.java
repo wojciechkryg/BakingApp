@@ -5,13 +5,13 @@ import com.google.gson.annotations.Expose;
 public class IngredientModel {
 
     @Expose
-    private int quantity;
+    private double quantity;
     @Expose
     private String measure;
     @Expose
     private String ingredient;
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 

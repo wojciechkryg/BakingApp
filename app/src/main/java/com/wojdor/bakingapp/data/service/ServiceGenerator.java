@@ -1,6 +1,5 @@
 package com.wojdor.bakingapp.data.service;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,7 +15,6 @@ public final class ServiceGenerator {
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(createOkHttpClient())
                 .build();
     }
 
@@ -29,9 +27,5 @@ public final class ServiceGenerator {
 
     public <T> T createService(Class<T> service) {
         return retrofit.create(service);
-    }
-
-    private OkHttpClient createOkHttpClient() {
-        return new OkHttpClient.Builder().build();
     }
 }

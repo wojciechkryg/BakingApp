@@ -17,11 +17,11 @@ public class Ingredient implements Parcelable {
         }
     };
 
-    private int quantity;
+    private double quantity;
     private String measure;
     private String name;
 
-    public Ingredient(int quantity, String measure, String name) {
+    public Ingredient(double quantity, String measure, String name) {
         this.quantity = quantity;
         this.measure = measure;
         this.name = name;
@@ -33,7 +33,7 @@ public class Ingredient implements Parcelable {
         name = in.readString();
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
@@ -52,7 +52,7 @@ public class Ingredient implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(quantity);
+        dest.writeDouble(quantity);
         dest.writeString(measure);
         dest.writeString(name);
     }
