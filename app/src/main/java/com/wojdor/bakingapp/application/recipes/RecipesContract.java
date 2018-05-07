@@ -13,6 +13,8 @@ public interface RecipesContract {
         void showRecipes(List<Recipe> recipes);
 
         void restoreRecipesListState();
+
+        void openRecipeDetails(Recipe recipe);
     }
 
     interface Presenter extends BasePresenter {

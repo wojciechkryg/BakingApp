@@ -1,5 +1,6 @@
 package com.wojdor.bakingapp.application.recipes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,6 +9,7 @@ import android.util.DisplayMetrics;
 
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.application.base.BaseActivity;
+import com.wojdor.bakingapp.application.details.DetailsActivity;
 import com.wojdor.bakingapp.domain.Recipe;
 
 import java.util.List;
@@ -81,5 +83,12 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
     public void restoreRecipesListState() {
         if (recipesRvState == null) return;
         recipesRv.getLayoutManager().onRestoreInstanceState(recipesRvState);
+    }
+
+    @Override
+    public void openRecipeDetails(Recipe recipe) {
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.RECIPE_EXTRA, recipe);
+        startActivity(intent);
     }
 }
