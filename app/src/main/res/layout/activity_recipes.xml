@@ -8,5 +8,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_recipes_recipes_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_recipe" />
 </android.support.constraint.ConstraintLayout>

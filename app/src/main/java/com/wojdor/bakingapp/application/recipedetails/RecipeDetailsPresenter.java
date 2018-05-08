@@ -14,7 +14,7 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
 
     @Override
     public void onAttachView() {
-
+        view.showRecipeDetails(recipe);
     }
 
     @Override
