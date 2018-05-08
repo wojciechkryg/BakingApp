@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/activity_recipe_details_steps_container_fl"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.333" />
+
+    <View
+        android:id="@+id/activity_recipe_details_separator_v"
+        android:layout_width="@dimen/separator_width"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintLeft_toRightOf="@id/activity_recipe_details_steps_container_fl" />
+
+    <FrameLayout
+        android:id="@+id/activity_recipe_details_step_details_container_fl"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toRightOf="@id/activity_recipe_details_separator_v"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>
