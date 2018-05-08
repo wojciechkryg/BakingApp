@@ -1,4 +1,4 @@
-package com.wojdor.bakingapp.application.details;
+package com.wojdor.bakingapp.application.recipedetails;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,16 +9,16 @@ import com.wojdor.bakingapp.domain.Recipe;
 
 import butterknife.ButterKnife;
 
-public class DetailsActivity extends BaseActivity implements DetailsContract.View {
+public class RecipeDetailsActivity extends BaseActivity implements RecipeDetailsContract.View {
 
     public static final String RECIPE_EXTRA = "RECIPE_EXTRA";
 
-    private DetailsContract.Presenter presenter;
+    private RecipeDetailsContract.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_recipe_details);
         ButterKnife.bind(this);
         setupPresenter();
     }
@@ -26,7 +26,7 @@ public class DetailsActivity extends BaseActivity implements DetailsContract.Vie
     @Override
     public void setupPresenter() {
         Recipe recipe = getIntent().getParcelableExtra(RECIPE_EXTRA);
-        presenter = new DetailsPresenter(this, recipe);
+        presenter = new RecipeDetailsPresenter(this, recipe);
         presenter.onAttachView();
     }
 

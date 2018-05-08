@@ -1,9 +1,9 @@
-package com.wojdor.bakingapp.application.details;
+package com.wojdor.bakingapp.application.recipedetails.steps;
 
 import com.wojdor.bakingapp.application.base.BasePresenter;
 import com.wojdor.bakingapp.application.base.BaseView;
 
-public interface DetailsContract {
+public interface StepsContract {
 
     interface View extends BaseView {
 

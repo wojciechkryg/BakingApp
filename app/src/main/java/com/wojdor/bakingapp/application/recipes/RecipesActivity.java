@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
 
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.application.base.BaseActivity;
-import com.wojdor.bakingapp.application.details.DetailsActivity;
+import com.wojdor.bakingapp.application.recipedetails.RecipeDetailsActivity;
 import com.wojdor.bakingapp.domain.Recipe;
 
 import java.util.List;
@@ -87,8 +87,8 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
 
     @Override
     public void openRecipeDetails(Recipe recipe) {
-        Intent intent = new Intent(this, DetailsActivity.class);
-        intent.putExtra(DetailsActivity.RECIPE_EXTRA, recipe);
+        Intent intent = new Intent(this, RecipeDetailsActivity.class);
+        intent.putExtra(RecipeDetailsActivity.RECIPE_EXTRA, recipe);
         startActivity(intent);
     }
 }
