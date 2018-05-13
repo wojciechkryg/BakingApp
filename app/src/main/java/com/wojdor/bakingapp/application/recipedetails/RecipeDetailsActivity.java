@@ -12,9 +12,9 @@ import com.wojdor.bakingapp.domain.Recipe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecipeDetailsActivity extends BaseActivity implements RecipeDetailsContract.View {
+import static com.wojdor.bakingapp.application.utils.Extras.RECIPE_EXTRA;
 
-    public static final String RECIPE_EXTRA = "RECIPE_EXTRA";
+public class RecipeDetailsActivity extends BaseActivity implements RecipeDetailsContract.View {
 
     @Nullable
     @BindView(R.id.activity_recipe_details_step_details_container_fl)
@@ -45,7 +45,7 @@ public class RecipeDetailsActivity extends BaseActivity implements RecipeDetails
 
     @Override
     public void showRecipeDetails(Recipe recipe) {
-        StepsFragment fragment = StepsFragment.newInstance(recipe);
-        replaceFragment(R.id.activity_recipe_details_steps_container_fl, fragment);
+        StepsFragment stepsFragment = StepsFragment.newInstance(recipe);
+        replaceFragment(R.id.activity_recipe_details_steps_container_fl, stepsFragment);
     }
 }

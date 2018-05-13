@@ -3,6 +3,8 @@ package com.wojdor.bakingapp.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DecimalFormat;
+
 public class Ingredient implements Parcelable {
 
     public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
@@ -55,5 +57,11 @@ public class Ingredient implements Parcelable {
         dest.writeDouble(quantity);
         dest.writeString(measure);
         dest.writeString(name);
+    }
+
+    @Override
+    public String toString() {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        return String.format("%s (%s %s)", name, decimalFormat.format(quantity), measure);
     }
 }

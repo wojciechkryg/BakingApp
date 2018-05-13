@@ -12,9 +12,9 @@ import com.wojdor.bakingapp.domain.Step;
 
 import java.util.List;
 
-public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
+import static com.wojdor.bakingapp.application.utils.Constants.NO_ITEMS_COUNT;
 
-    private static final int NO_ITEMS_COUNT = 0;
+public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
 
     private final OnItemClickListener onItemClickListener;
     private List<Step> steps;

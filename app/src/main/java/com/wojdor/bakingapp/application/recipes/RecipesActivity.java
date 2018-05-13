@@ -17,6 +17,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.wojdor.bakingapp.application.utils.Extras.RECIPE_EXTRA;
+
 public class RecipesActivity extends BaseActivity implements RecipesContract.View {
 
     private static final String LAST_RECIPES_RV_STATE = "LAST_RECIPES_RV_STATE";
@@ -88,7 +90,7 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
     @Override
     public void openRecipeDetails(Recipe recipe) {
         Intent intent = new Intent(this, RecipeDetailsActivity.class);
-        intent.putExtra(RecipeDetailsActivity.RECIPE_EXTRA, recipe);
+        intent.putExtra(RECIPE_EXTRA, recipe);
         startActivity(intent);
     }
 }

@@ -3,15 +3,18 @@ package com.wojdor.bakingapp.application.recipedetails.steps;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.application.base.BaseFragment;
+import com.wojdor.bakingapp.domain.Ingredient;
 import com.wojdor.bakingapp.domain.Recipe;
 import com.wojdor.bakingapp.domain.Step;
 
@@ -20,10 +23,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.wojdor.bakingapp.application.utils.Constants.BIG_DOT;
+import static com.wojdor.bakingapp.application.utils.Constants.EOL;
+import static com.wojdor.bakingapp.application.utils.Extras.RECIPE_EXTRA;
+
 public class StepsFragment extends BaseFragment implements StepsContract.View {
 
-    public static final String RECIPE_EXTRA = "RECIPE_EXTRA";
-
+    @BindView(R.id.fragment_steps_container_nsv)
+    NestedScrollView containerNsv;
+    @BindView(R.id.fragment_steps_ingredients_tv)
+    TextView ingredientsTv;
     @BindView(R.id.fragment_steps_steps_rv)
     RecyclerView stepsRv;
 
@@ -62,6 +71,7 @@ public class StepsFragment extends BaseFragment implements StepsContract.View {
         stepsRv.setLayoutManager(layoutManager);
         addDividerToStepsRv(layoutManager);
         stepsRv.setAdapter(adapter);
+        stepsRv.setNestedScrollingEnabled(false);
     }
 
     private void addDividerToStepsRv(LinearLayoutManager layoutManager) {
@@ -74,6 +84,14 @@ public class StepsFragment extends BaseFragment implements StepsContract.View {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter.onAttachView();
+    }
+
+    @Override
+    public void showIngredients(List<Ingredient> ingredients) {
+        for (Ingredient ingredient : ingredients) {
+            String formattedIngredient = String.format("%s %s%s", BIG_DOT, ingredient.toString(), EOL);
+            ingredientsTv.append(formattedIngredient);
+        }
     }
 
     @Override

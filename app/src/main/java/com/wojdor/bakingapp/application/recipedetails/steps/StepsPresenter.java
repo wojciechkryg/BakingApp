@@ -14,6 +14,7 @@ public class StepsPresenter implements StepsContract.Presenter {
 
     @Override
     public void onAttachView() {
+        view.showIngredients(recipe.getIngredients());
         view.showSteps(recipe.getSteps());
     }
 

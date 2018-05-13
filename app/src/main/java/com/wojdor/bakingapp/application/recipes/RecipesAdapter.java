@@ -15,9 +15,9 @@ import com.wojdor.bakingapp.domain.Recipe;
 
 import java.util.List;
 
-public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
+import static com.wojdor.bakingapp.application.utils.Constants.NO_ITEMS_COUNT;
 
-    private static final int NO_ITEMS_COUNT = 0;
+public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
 
     private final OnItemClickListener onItemClickListener;
     private Context context;
