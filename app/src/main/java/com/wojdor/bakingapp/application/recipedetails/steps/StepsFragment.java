@@ -38,6 +38,7 @@ public class StepsFragment extends BaseFragment implements StepsContract.View {
 
     private StepsContract.Presenter presenter;
     private StepsAdapter adapter;
+    private OnStepClickListener onStepClickListener;
 
     public static StepsFragment newInstance(Recipe recipe) {
         Bundle bundle = new Bundle();
@@ -57,21 +58,19 @@ public class StepsFragment extends BaseFragment implements StepsContract.View {
         return view;
     }
 
-    @Override
-    public void setupPresenter() {
-        Recipe recipe = getArguments().getParcelable(RECIPE_EXTRA);
-        presenter = new StepsPresenter(this, recipe);
-    }
-
     private void setupStatesRv() {
-        adapter = new StepsAdapter(step -> {
-            // TODO: On step click, show step's details
-        });
+        adapter = new StepsAdapter(step -> onStepClickListener.onStepSelected(step));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         stepsRv.setLayoutManager(layoutManager);
         addDividerToStepsRv(layoutManager);
         stepsRv.setAdapter(adapter);
         stepsRv.setNestedScrollingEnabled(false);
+    }
+
+    @Override
+    public void setupPresenter() {
+        Recipe recipe = getArguments().getParcelable(RECIPE_EXTRA);
+        presenter = new StepsPresenter(this, recipe);
     }
 
     private void addDividerToStepsRv(LinearLayoutManager layoutManager) {
@@ -97,5 +96,15 @@ public class StepsFragment extends BaseFragment implements StepsContract.View {
     @Override
     public void showSteps(List<Step> steps) {
         adapter.setSteps(steps);
+    }
+
+    public void setOnStepClickListener(OnStepClickListener onStepClickListener) {
+        this.onStepClickListener = onStepClickListener;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.onDetachView();
     }
 }

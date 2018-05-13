@@ -1,6 +1,7 @@
 package com.wojdor.bakingapp.application.recipedetails;
 
 import com.wojdor.bakingapp.domain.Recipe;
+import com.wojdor.bakingapp.domain.Step;
 
 public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
 
@@ -20,5 +21,10 @@ public class RecipeDetailsPresenter implements RecipeDetailsContract.Presenter {
     @Override
     public void onDetachView() {
 
+    }
+
+    @Override
+    public void showStepDetails(Step step) {
+        view.openStepDetails(step);
     }
 }

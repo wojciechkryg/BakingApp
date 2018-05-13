@@ -27,5 +27,9 @@
         <activity
             android:name=".application.recipedetails.RecipeDetailsActivity"
             android:parentActivityName=".application.recipes.RecipesActivity" />
+
+        <activity
+            android:name=".application.recipedetails.stepdetails.StepDetailsActivity"
+            android:parentActivityName=".application.recipedetails.RecipeDetailsActivity" />
     </application>
 </manifest>
