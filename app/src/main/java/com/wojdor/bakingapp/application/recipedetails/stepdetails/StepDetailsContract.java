@@ -7,6 +7,10 @@ public interface StepDetailsContract {
 
     interface View extends BaseContract.View {
 
+        void initializePlayer();
+
+        void releasePlayer();
+
         void showStepDetails(Step step);
     }
 

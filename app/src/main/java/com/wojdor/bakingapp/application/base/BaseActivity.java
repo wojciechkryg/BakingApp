@@ -17,4 +17,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .replace(resId, fragment)
                 .commit();
     }
+
+    protected boolean isFragmentNotAddedToLayout(@IdRes int resId) {
+        return getSupportFragmentManager().findFragmentById(resId) == null;
+    }
 }

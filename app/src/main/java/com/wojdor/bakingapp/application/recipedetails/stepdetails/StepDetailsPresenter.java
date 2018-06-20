@@ -14,11 +14,12 @@ public class StepDetailsPresenter implements StepDetailsContract.Presenter {
 
     @Override
     public void onAttachView() {
+        view.initializePlayer();
         view.showStepDetails(step);
     }
 
     @Override
     public void onDetachView() {
-
+        view.releasePlayer();
     }
 }

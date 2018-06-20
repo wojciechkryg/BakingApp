@@ -11,23 +11,19 @@ import static com.wojdor.bakingapp.application.utils.Extras.STEP_EXTRA;
 
 public class StepDetailsActivity extends BaseActivity {
 
-    private Step step;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_details);
-        handleExtras();
+        Step step = getIntent().getParcelableExtra(STEP_EXTRA);
         setTitle(step.getShortDescription());
-        showStepDetailsFragment();
+        showStepDetailsFragment(step);
     }
 
-    private void handleExtras() {
-        step = getIntent().getParcelableExtra(STEP_EXTRA);
-    }
-
-    private void showStepDetailsFragment() {
-        StepDetailsFragment stepDetailsFragment = StepDetailsFragment.newInstance(step);
-        replaceFragment(R.id.activity_step_details_container_fl, stepDetailsFragment);
+    private void showStepDetailsFragment(Step step) {
+        if (isFragmentNotAddedToLayout(R.id.activity_step_details_container_fl)) {
+            StepDetailsFragment stepDetailsFragment = StepDetailsFragment.newInstance(step);
+            replaceFragment(R.id.activity_step_details_container_fl, stepDetailsFragment);
+        }
     }
 }
