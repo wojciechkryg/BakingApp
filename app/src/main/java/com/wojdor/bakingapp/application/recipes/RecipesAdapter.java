@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.domain.Recipe;
 
@@ -45,9 +46,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
     private void setupRecipeIv(@NonNull ImageView imageIv, Recipe recipe) {
         if (isImageUrlInvalid(recipe)) return;
-        Picasso.with(context)
+        Glide.with(context)
                 .load(recipe.getImageUrl())
-                .error(R.drawable.ic_recipe_image)
+                .apply(new RequestOptions().error(R.drawable.ic_recipe_image))
                 .into(imageIv);
     }
 

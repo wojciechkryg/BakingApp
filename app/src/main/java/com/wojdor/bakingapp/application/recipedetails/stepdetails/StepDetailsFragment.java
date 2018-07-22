@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -35,6 +37,8 @@ public class StepDetailsFragment extends BaseFragment implements StepDetailsCont
 
     @BindView(R.id.fragment_step_details_video_pv)
     PlayerView videoPv;
+    @BindView(R.id.fragment_step_details_thumbnail_iv)
+    ImageView thumbnailIv;
     @BindView(R.id.fragment_step_details_description_tv)
     TextView descriptionTv;
 
@@ -98,6 +102,9 @@ public class StepDetailsFragment extends BaseFragment implements StepDetailsCont
 
     @Override
     public void showStepDetails(Step step) {
+        Glide.with(this)
+                .load(step.getThumbnailUrl())
+                .into(thumbnailIv);
         descriptionTv.setText(step.getDescription());
         loadVideo(step.getVideoUrl());
     }
