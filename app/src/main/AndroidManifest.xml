@@ -22,7 +22,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".application.recipes.RecipesActivity" />
+        <activity android:name=".application.recipes.RecipesActivity">
+        <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".application.recipedetails.RecipeDetailsActivity"
@@ -32,5 +36,15 @@
         <activity
             android:name=".application.recipedetails.stepdetails.StepDetailsActivity"
             android:parentActivityName=".application.recipedetails.RecipeDetailsActivity" />
+
+        <receiver android:name=".application.widget.RecipeWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_widget_provider_info" />
+        </receiver>
     </application>
 </manifest>
