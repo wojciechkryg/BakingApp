@@ -3,7 +3,6 @@ package com.wojdor.bakingapp.application.recipes;
 import com.wojdor.bakingapp.data.model.RecipeModel;
 import com.wojdor.bakingapp.data.service.RecipesService;
 import com.wojdor.bakingapp.data.utils.RecipeMapper;
-import com.wojdor.bakingapp.domain.Ingredient;
 import com.wojdor.bakingapp.domain.Recipe;
 
 import java.util.List;
@@ -11,9 +10,6 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.wojdor.bakingapp.application.utils.Constants.BIG_DOT;
-import static com.wojdor.bakingapp.application.utils.Constants.EOL;
 
 public class RecipesPresenter implements RecipesContract.Presenter {
 
@@ -58,19 +54,6 @@ public class RecipesPresenter implements RecipesContract.Presenter {
 
     @Override
     public void setupRecipeWidget(Recipe recipe) {
-        view.showRecipeWidget(recipe.getName(), getFormattedIngredients(recipe));
-    }
-
-    private String getFormattedIngredients(Recipe recipe) {
-        StringBuilder formattedIngredients = new StringBuilder();
-        Ingredient ingredient;
-        for (int i = 0; i < recipe.getIngredients().size(); i++) {
-            ingredient = recipe.getIngredients().get(i);
-            formattedIngredients.append(String.format("%s %s", BIG_DOT, ingredient.toString()));
-            if (i < recipe.getIngredients().size() - 1) {
-                formattedIngredients.append(EOL);
-            }
-        }
-        return formattedIngredients.toString();
+        view.showRecipeWidget(recipe);
     }
 }

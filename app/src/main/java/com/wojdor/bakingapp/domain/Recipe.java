@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import java.util.List;
 
+import static com.wojdor.bakingapp.application.utils.Constants.BIG_DOT;
+import static com.wojdor.bakingapp.application.utils.Constants.EOL;
+
 public class Recipe implements Parcelable {
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -81,5 +84,18 @@ public class Recipe implements Parcelable {
         dest.writeTypedList(steps);
         dest.writeInt(servings);
         dest.writeString(imageUrl);
+    }
+
+    public String getFormattedIngredients() {
+        StringBuilder formattedIngredients = new StringBuilder();
+        Ingredient ingredient;
+        for (int i = 0; i < getIngredients().size(); i++) {
+            ingredient = getIngredients().get(i);
+            formattedIngredients.append(String.format("%s %s", BIG_DOT, ingredient.toString()));
+            if (i < getIngredients().size() - 1) {
+                formattedIngredients.append(EOL);
+            }
+        }
+        return formattedIngredients.toString();
     }
 }

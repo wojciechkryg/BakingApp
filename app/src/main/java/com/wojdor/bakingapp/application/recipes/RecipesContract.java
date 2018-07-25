@@ -15,7 +15,7 @@ public interface RecipesContract {
 
         void openRecipeDetails(Recipe recipe);
 
-        void showRecipeWidget(String recipeName, String formattedRecipeIngredients);
+        void showRecipeWidget(Recipe recipe);
     }
 
     interface Presenter extends BaseContract.Presenter {

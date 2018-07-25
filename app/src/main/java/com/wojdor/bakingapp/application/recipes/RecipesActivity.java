@@ -14,7 +14,6 @@ import android.widget.RemoteViews;
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.application.base.BaseActivity;
 import com.wojdor.bakingapp.application.recipedetails.RecipeDetailsActivity;
-import com.wojdor.bakingapp.application.splash.SplashActivity;
 import com.wojdor.bakingapp.domain.Recipe;
 
 import java.util.List;
@@ -122,34 +121,35 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
     }
 
     @Override
-    public void showRecipeWidget(String recipeName, String formattedRecipeIngredients) {
-        updateRecipeWidget(recipeName, formattedRecipeIngredients);
+    public void showRecipeWidget(Recipe recipe) {
+        updateRecipeWidget(recipe);
         setupResult();
         finish();
     }
 
-    private void updateRecipeWidget(String recipeName, String formattedRecipeIngredients) {
+    private void updateRecipeWidget(Recipe recipe) {
         RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_recipe);
-        setupWidgetRecipeName(views, recipeName);
-        setupWidgetIngredients(views, formattedRecipeIngredients);
-        setupWidgetOnClick(views);
+        setupWidgetRecipeName(views, recipe);
+        setupWidgetIngredients(views, recipe);
+        setupWidgetOnClick(views, recipe);
         AppWidgetManager.getInstance(this).updateAppWidget(getWidgetId(), views);
     }
 
-    private void setupWidgetRecipeName(RemoteViews views, String recipeName) {
-        views.setTextViewText(R.id.widget_recipe_recipe_name_tv, recipeName);
+    private void setupWidgetRecipeName(RemoteViews views, Recipe recipe) {
+        views.setTextViewText(R.id.widget_recipe_recipe_name_tv, recipe.getName());
     }
 
-    private void setupWidgetIngredients(RemoteViews views, String formattedRecipeIngredients) {
-        views.setTextViewText(R.id.widget_recipe_ingredients_tv, formattedRecipeIngredients);
+    private void setupWidgetIngredients(RemoteViews views, Recipe recipe) {
+        views.setTextViewText(R.id.widget_recipe_ingredients_tv, recipe.getFormattedIngredients());
     }
 
-    private void setupWidgetOnClick(RemoteViews views) {
-        views.setOnClickPendingIntent(R.id.widget_recipe_container_rl, createOnClickPendingIntent());
+    private void setupWidgetOnClick(RemoteViews views, Recipe recipe) {
+        views.setOnClickPendingIntent(R.id.widget_recipe_container_rl, createOnClickPendingIntent(recipe));
     }
 
-    private PendingIntent createOnClickPendingIntent() {
-        Intent intent = new Intent(this, SplashActivity.class);
+    private PendingIntent createOnClickPendingIntent(Recipe recipe) {
+        Intent intent = new Intent(this, RecipeDetailsActivity.class);
+        intent.putExtra(RECIPE_EXTRA, recipe);
         return PendingIntent.getActivity(this, WIDGET_REQUEST_CODE, intent, WIDGET_DEFAULT_FLAG);
     }
 
