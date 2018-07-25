@@ -1,15 +1,20 @@
 package com.wojdor.bakingapp.application.recipes;
 
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.widget.RemoteViews;
 
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.application.base.BaseActivity;
 import com.wojdor.bakingapp.application.recipedetails.RecipeDetailsActivity;
+import com.wojdor.bakingapp.application.splash.SplashActivity;
 import com.wojdor.bakingapp.domain.Recipe;
 
 import java.util.List;
@@ -23,6 +28,8 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
 
     private static final String LAST_RECIPES_RV_STATE = "LAST_RECIPES_RV_STATE";
     private static final int COLUMN_WIDTH_DIVIDER = 500;
+    private static final int WIDGET_REQUEST_CODE = 0;
+    private static final int WIDGET_DEFAULT_FLAG = 0;
 
     @BindView(R.id.activity_recipes_recipes_rv)
     RecyclerView recipesRv;
@@ -53,9 +60,29 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
     }
 
     public void setupRecipesRv() {
-        adapter = new RecipesAdapter(recipe -> presenter.showRecipeDetails(recipe));
+        adapter = new RecipesAdapter(getOnRecipeClickListener());
         recipesRv.setLayoutManager(new GridLayoutManager(this, calculateNumberOfColumns()));
         recipesRv.setAdapter(adapter);
+    }
+
+    @NonNull
+    private RecipesAdapter.OnItemClickListener getOnRecipeClickListener() {
+        if (isChoosingRecipeForWidget()) {
+            return recipe -> presenter.setupRecipeWidget(recipe);
+        }
+        return recipe -> presenter.showRecipeDetails(recipe);
+    }
+
+    private boolean isChoosingRecipeForWidget() {
+        return getWidgetId() != AppWidgetManager.INVALID_APPWIDGET_ID;
+    }
+
+    private int getWidgetId() {
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            return AppWidgetManager.INVALID_APPWIDGET_ID;
+        }
+        return extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
     }
 
     private int calculateNumberOfColumns() {
@@ -92,5 +119,43 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
         Intent intent = new Intent(this, RecipeDetailsActivity.class);
         intent.putExtra(RECIPE_EXTRA, recipe);
         startActivity(intent);
+    }
+
+    @Override
+    public void showRecipeWidget(String recipeName, String formattedRecipeIngredients) {
+        updateRecipeWidget(recipeName, formattedRecipeIngredients);
+        setupResult();
+        finish();
+    }
+
+    private void updateRecipeWidget(String recipeName, String formattedRecipeIngredients) {
+        RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_recipe);
+        setupWidgetRecipeName(views, recipeName);
+        setupWidgetIngredients(views, formattedRecipeIngredients);
+        setupWidgetOnClick(views);
+        AppWidgetManager.getInstance(this).updateAppWidget(getWidgetId(), views);
+    }
+
+    private void setupWidgetRecipeName(RemoteViews views, String recipeName) {
+        views.setTextViewText(R.id.widget_recipe_recipe_name_tv, recipeName);
+    }
+
+    private void setupWidgetIngredients(RemoteViews views, String formattedRecipeIngredients) {
+        views.setTextViewText(R.id.widget_recipe_ingredients_tv, formattedRecipeIngredients);
+    }
+
+    private void setupWidgetOnClick(RemoteViews views) {
+        views.setOnClickPendingIntent(R.id.widget_recipe_container_rl, createOnClickPendingIntent());
+    }
+
+    private PendingIntent createOnClickPendingIntent() {
+        Intent intent = new Intent(this, SplashActivity.class);
+        return PendingIntent.getActivity(this, WIDGET_REQUEST_CODE, intent, WIDGET_DEFAULT_FLAG);
+    }
+
+    private void setupResult() {
+        Intent resultValue = new Intent();
+        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, getWidgetId());
+        setResult(RESULT_OK, resultValue);
     }
 }

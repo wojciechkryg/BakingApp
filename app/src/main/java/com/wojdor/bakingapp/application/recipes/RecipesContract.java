@@ -14,10 +14,14 @@ public interface RecipesContract {
         void restoreRecipesListState();
 
         void openRecipeDetails(Recipe recipe);
+
+        void showRecipeWidget(String recipeName, String formattedRecipeIngredients);
     }
 
     interface Presenter extends BaseContract.Presenter {
 
         void showRecipeDetails(Recipe recipe);
+
+        void setupRecipeWidget(Recipe recipe);
     }
 }

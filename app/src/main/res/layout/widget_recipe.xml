@@ -1,20 +1,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/widget_recipe_container_rv"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_recipe_container_rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09C">
+    android:background="@color/transparent_black"
+    android:gravity="center">
 
     <TextView
-        android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
+        android:id="@+id/widget_recipe_recipe_name_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_margin="@dimen/small_margin"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/widget_recipe_recipe_name_size"
+        android:textStyle="bold"
+        tools:text="Nutella Pie" />
+
+    <TextView
+        android:id="@+id/widget_recipe_ingredients_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/widget_recipe_recipe_name_tv"
+        android:layout_margin="@dimen/small_margin"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/widget_recipe_ingredients_size"
+        tools:text="• Graham Cracker\n• Graham Cracker\n• Graham Cracker\n• Graham Cracker" />
 </RelativeLayout>
