@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.application.base.BaseFragment;
-import com.wojdor.bakingapp.domain.Ingredient;
 import com.wojdor.bakingapp.domain.Recipe;
 import com.wojdor.bakingapp.domain.Step;
 
@@ -23,8 +22,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.wojdor.bakingapp.application.utils.Constants.BIG_DOT;
-import static com.wojdor.bakingapp.application.utils.Constants.EOL;
 import static com.wojdor.bakingapp.application.utils.Extras.RECIPE_EXTRA;
 
 public class StepsFragment extends BaseFragment implements StepsContract.View {
@@ -86,11 +83,8 @@ public class StepsFragment extends BaseFragment implements StepsContract.View {
     }
 
     @Override
-    public void showIngredients(List<Ingredient> ingredients) {
-        for (Ingredient ingredient : ingredients) {
-            String formattedIngredient = String.format("%s %s%s", BIG_DOT, ingredient.toString(), EOL);
-            ingredientsTv.append(formattedIngredient);
-        }
+    public void showIngredients(String formattedIngredients) {
+        ingredientsTv.setText(formattedIngredients);
     }
 
     @Override
