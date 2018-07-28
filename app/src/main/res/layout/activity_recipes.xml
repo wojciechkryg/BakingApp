@@ -10,4 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_recipe" />
+
+    <TextView
+        android:id="@+id/activity_recipes_error_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/error"
+        android:textSize="@dimen/activity_recipes_error_tv_text_size"
+        android:visibility="gone" />
 </android.support.constraint.ConstraintLayout>

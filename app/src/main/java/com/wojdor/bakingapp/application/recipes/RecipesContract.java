@@ -16,6 +16,8 @@ public interface RecipesContract {
         void openRecipeDetails(Recipe recipe);
 
         void showRecipeWidget(Recipe recipe);
+
+        void showError();
     }
 
     interface Presenter extends BaseContract.Presenter {

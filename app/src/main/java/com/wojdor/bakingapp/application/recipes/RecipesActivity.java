@@ -9,7 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import com.wojdor.bakingapp.R;
 import com.wojdor.bakingapp.application.base.BaseActivity;
@@ -32,6 +34,8 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
 
     @BindView(R.id.activity_recipes_recipes_rv)
     RecyclerView recipesRv;
+    @BindView(R.id.activity_recipes_error_tv)
+    TextView errorTv;
 
     private RecipesContract.Presenter presenter;
     private RecipesAdapter adapter;
@@ -125,6 +129,12 @@ public class RecipesActivity extends BaseActivity implements RecipesContract.Vie
         updateRecipeWidget(recipe);
         setupResult();
         finish();
+    }
+
+    @Override
+    public void showError() {
+        errorTv.setVisibility(View.VISIBLE);
+        recipesRv.setVisibility(View.GONE);
     }
 
     private void updateRecipeWidget(Recipe recipe) {

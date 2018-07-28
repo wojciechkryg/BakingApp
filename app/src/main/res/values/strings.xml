@@ -2,4 +2,6 @@
     <string name="app_name">Baking App</string>
 
     <string name="recipe_image">Recipe Image</string>
+
+    <string name="error">Connection problems.\nPlease try again.</string>
 </resources>

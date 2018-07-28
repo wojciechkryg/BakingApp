@@ -39,7 +39,7 @@ public class RecipesPresenter implements RecipesContract.Presenter {
     }
 
     private <T extends Throwable> void onLoadError(T error) {
-        // TODO: Show error in view
+        view.showError();
     }
 
     @Override
