@@ -10,7 +10,7 @@ Written in Java with use of MVP and Espresso.
   <img src="https://github.com/wojciechkryg/BakingApp/blob/master/screenshots/03.png?raw=true" alt="baking_app_03" style="width: 360px;"/>
 </p>
 
-### Tablet
+### Tablet (master detail flow)
 <p align="center">
   <img src="https://github.com/wojciechkryg/BakingApp/blob/master/screenshots/04.png?raw=true" alt="baking_app_04" style="width: 360px;"/>
   <img src="https://github.com/wojciechkryg/BakingApp/blob/master/screenshots/05.png?raw=true" alt="baking_app_05" style="width: 360px;"/>
